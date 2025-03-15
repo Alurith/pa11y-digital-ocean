@@ -19,11 +19,11 @@ npx --yes puppeteer browsers install chrome@$TARGET_CHROME_VERSION
 
 # Change ownership of the Chrome sandbox binary to root.
 # This is needed because the sandbox requires root ownership to set the correct permissions.
-sudo chown root:root /home/app/.cache/puppeteer/chrome/linux-$TARGET_CHROME_VERSION/chrome-linux64/chrome_sandbox 
+sudo chown root:root $HOME/.cache/puppeteer/chrome/linux-$TARGET_CHROME_VERSION/chrome-linux64/chrome_sandbox 
 
 # Set the permissions on the Chrome sandbox binary.
 # The permission 4775 enables the setuid bit, which is required for Chrome's sandbox to work properly.
-sudo chmod 4775 /home/app/.cache/puppeteer/chrome/linux-$TARGET_CHROME_VERSION/chrome-linux64/chrome_sandbox 
+sudo chmod 4775 $HOME/.cache/puppeteer/chrome/linux-$TARGET_CHROME_VERSION/chrome-linux64/chrome_sandbox 
 
 # Start a new DBus session and export necessary environment variables.
 # eval $(dbus-launch --sh-syntax)
@@ -36,7 +36,7 @@ sudo sysctl -w vm.overcommit_memory=1
 echo "# Environment variables for Chrome and Puppeteer (set on $(date))" >> ~/.bashrc
 echo "export XDG_RUNTIME_DIR=\"/run/user/$UID\"" >> ~/.bashrc
 echo "export DBUS_SESSION_BUS_ADDRESS=\"unix:path=/run/user/$UID/bus\"" >> ~/.bashrc
-echo "export CHROME_DEVEL_SANDBOX=\"/home/app/.cache/puppeteer/chrome/linux-$TARGET_CHROME_VERSION/chrome-linux64/chrome_sandbox\"" >> ~/.bashrc
+echo "export CHROME_DEVEL_SANDBOX=\"$HOME/.cache/puppeteer/chrome/linux-$TARGET_CHROME_VERSION/chrome-linux64/chrome_sandbox\"" >> ~/.bashrc
 
 # Reload .bashrc so that the new environment variables take effect immediately.
 source ~/.bashrc
